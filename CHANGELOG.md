@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.1.2 — 2026-05-24
+
+- Fix: YAML frontmatter `url` and `markdown_url` fields now quoted for spec compliance
+- Fix: Markdown link titles in llms.txt now escape `]` characters to prevent broken links
+- Fix: Version check moved into `plugins_loaded` hook
+- Add: `llmmd_bulk_generate_limit` filter for large-site memory control
+- Internal planning docs removed from repository
+
 ## 1.1.1 — 2026-05-20
 
 - Replace "View details" plugin row link with "Visit plugin site" pointing to miriamschwab.me

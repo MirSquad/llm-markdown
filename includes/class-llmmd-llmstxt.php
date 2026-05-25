@@ -39,6 +39,7 @@ class LLMMD_LLMs_Txt {
 		header( 'X-Robots-Tag: noindex' );
 		status_header( 200 );
 
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Intentional: serving raw text/plain llms.txt, not HTML.
 		echo $content;
 		exit;
 	}
@@ -120,7 +121,7 @@ class LLMMD_LLMs_Txt {
 		} else {
 			$url = rtrim( get_permalink( $post->ID ), '/' ) . '.md';
 		}
-		$title   = self::decode( get_the_title( $post ) );
+		$title   = str_replace( [ '[', ']' ], [ '\[', '\]' ], self::decode( get_the_title( $post ) ) );
 		$excerpt = self::decode( get_the_excerpt( $post ) );
 		$line    = '- [' . $title . '](' . $url . ')';
 		if ( ! empty( $excerpt ) ) {

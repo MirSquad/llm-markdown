@@ -3,7 +3,7 @@
  * Plugin Name:       LLM Markdown
  * Plugin URI:        https://miriamschwab.me/plugins/llm-markdown
  * Description:       Serves markdown versions of site content at .md URLs for LLMs, with llms.txt site index.
- * Version:           1.1.1
+ * Version:           1.1.2
  * Author:            Miriam Schwab
  * Author URI:        https://miriamschwab.me
  * License:           GPL-2.0-or-later
@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'LLMMD_VERSION', '1.1.1' );
+define( 'LLMMD_VERSION', '1.1.2' );
 define( 'LLMMD_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'LLMMD_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define( 'LLMMD_PLUGIN_FILE', __FILE__ );
@@ -47,10 +47,13 @@ function llmmd_get_root_selector() {
 	return isset( $settings['root_selector'] ) ? $settings['root_selector'] : '';
 }
 
-$llmmd_stored_version = get_option( 'llmmd_version' );
-if ( $llmmd_stored_version !== LLMMD_VERSION ) {
-	delete_transient( 'llmmd_llms_txt' );
-	update_option( 'llmmd_version', LLMMD_VERSION );
+add_action( 'plugins_loaded', 'llmmd_check_version' );
+function llmmd_check_version() {
+	$stored = get_option( 'llmmd_version' );
+	if ( $stored !== LLMMD_VERSION ) {
+		delete_transient( 'llmmd_llms_txt' );
+		update_option( 'llmmd_version', LLMMD_VERSION );
+	}
 }
 
 LLMMD_Server::init();
@@ -118,10 +121,18 @@ function llmmd_bulk_generate() {
 	if ( empty( $post_types ) ) {
 		return;
 	}
+	/**
+	 * Filters the maximum number of posts processed during bulk markdown generation.
+	 * On large sites, set this to a reasonable limit (e.g. 500) to avoid timeouts.
+	 * Default -1 processes all published posts.
+	 *
+	 * @param int $limit Posts per page. -1 for all.
+	 */
+	$limit = (int) apply_filters( 'llmmd_bulk_generate_limit', -1 );
 	$posts = get_posts( [
 		'post_type'      => $post_types,
 		'post_status'    => 'publish',
-		'posts_per_page' => -1,
+		'posts_per_page' => $limit,
 		'fields'         => 'ids',
 	] );
 	foreach ( $posts as $post_id ) {

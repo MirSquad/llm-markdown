@@ -84,6 +84,7 @@ class LLMMD_Server {
 		header( 'Link: <' . esc_url( get_permalink( $post_id ) ) . '>; rel="canonical"' );
 		status_header( 200 );
 
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Intentional: serving raw markdown as text/markdown, not HTML.
 		echo $markdown;
 		exit;
 	}

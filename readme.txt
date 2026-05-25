@@ -4,7 +4,7 @@ Tags: markdown, llm, ai, llms-txt, content
 Requires at least: 6.0
 Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 1.1.1
+Stable tag: 1.1.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -55,6 +55,13 @@ It's an emerging convention (similar to robots.txt) that helps AI models discove
 Yes. Go to Settings > LLM Markdown and check the post types you want to enable.
 
 == Changelog ==
+
+= 1.1.2 =
+* Fix: YAML frontmatter url and markdown_url fields now quoted for spec compliance
+* Fix: Markdown link titles in llms.txt now escape ] characters to prevent broken links
+* Fix: Version check moved into plugins_loaded hook
+* Add: llmmd_bulk_generate_limit filter for large-site memory control
+* Internal docs removed from repository
 
 = 1.1.1 =
 * Replace "View details" plugin row link with "Visit plugin site" pointing to miriamschwab.me

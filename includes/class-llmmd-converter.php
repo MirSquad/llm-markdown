@@ -32,12 +32,12 @@ class LLMMD_Converter {
 		if ( $author ) {
 			$lines[] = 'author: "' . self::escape_yaml( $author->display_name ) . '"';
 		}
-		$lines[] = 'url: ' . $url;
+		$lines[] = 'url: "' . $url . '"';
 		$front_page_id = (int) get_option( 'page_on_front' );
 		if ( $front_page_id && $front_page_id === $post->ID ) {
-			$lines[] = 'markdown_url: ' . rtrim( $url, '/' ) . '/index.md';
+			$lines[] = 'markdown_url: "' . rtrim( $url, '/' ) . '/index.md"';
 		} else {
-			$lines[] = 'markdown_url: ' . rtrim( $url, '/' ) . '.md';
+			$lines[] = 'markdown_url: "' . rtrim( $url, '/' ) . '.md"';
 		}
 		$lines[] = 'type: ' . $post->post_type;
 

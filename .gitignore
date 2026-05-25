@@ -2,3 +2,7 @@
 .claude/
 *.zip
 analysis/
+decisions-log.md
+handoff.md
+project-context.md
+session-opener.md
