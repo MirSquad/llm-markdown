@@ -4,6 +4,7 @@ if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
 }
 
 delete_option( 'llmmd_settings' );
+delete_option( 'llmmd_write_abilities' );
 delete_option( 'llmmd_version' );
 delete_transient( 'llmmd_llms_txt' );
 

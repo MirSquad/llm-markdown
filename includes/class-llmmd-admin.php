@@ -47,6 +47,18 @@ class LLMMD_Admin {
 			'llm-markdown',
 			'llmmd_main'
 		);
+
+		register_setting( 'llmmd_settings_group', 'llmmd_write_abilities', [
+			'sanitize_callback' => 'rest_sanitize_boolean',
+		] );
+
+		add_settings_field(
+			'llmmd_write_abilities',
+			__( 'Abilities API', 'llm-markdown' ),
+			[ __CLASS__, 'render_write_abilities_field' ],
+			'llm-markdown',
+			'llmmd_main'
+		);
 	}
 
 	public static function sanitize_settings( $input ) {
@@ -91,6 +103,14 @@ class LLMMD_Admin {
 		$value    = isset( $settings['root_selector'] ) ? $settings['root_selector'] : '';
 		echo '<input type="text" name="llmmd_settings[root_selector]" value="' . esc_attr( $value ) . '" class="regular-text" placeholder="main, article, .entry-content">';
 		echo '<p class="description">' . esc_html__( 'CSS selector(s) to extract content from. Leave empty to use the full post content. Comma-separated for multiple selectors.', 'llm-markdown' ) . '</p>';
+	}
+
+	public static function render_write_abilities_field() {
+		echo '<label>';
+		echo '<input type="checkbox" name="llmmd_write_abilities" value="1" ' . checked( 1, get_option( 'llmmd_write_abilities', 0 ), false ) . ' />';
+		echo ' ' . esc_html__( 'Enable write abilities (regenerate markdown files via AI agents)', 'llm-markdown' );
+		echo '</label>';
+		echo '<p class="description">' . esc_html__( 'Read access (settings) is always enabled. Requires WordPress 6.9+.', 'llm-markdown' ) . '</p>';
 	}
 
 	public static function render_page() {

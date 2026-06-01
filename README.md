@@ -71,3 +71,23 @@ Welcome to WordPress. This is your first post. Edit or delete it, then start wri
 ## License
 
 GPL-2.0-or-later
+
+## WordPress Abilities API
+
+This plugin exposes abilities for the [WordPress Abilities API](https://developer.wordpress.org/apis/abilities-api/) (WordPress 6.9+), making it manageable by AI agents via the [MCP Adapter](https://github.com/WordPress/mcp-adapter) plugin.
+
+### Requirements
+
+- WordPress 6.9+
+- [MCP Adapter plugin](https://github.com/WordPress/mcp-adapter)
+
+### Available abilities
+
+| Ability | Access | Description |
+|---|---|---|
+| `llm-markdown/get-settings` | Always on | Returns the enabled post types and content root CSS selector |
+| `llm-markdown/regenerate-files` | Write (opt-in) | Regenerates cached markdown for all published content across all enabled post types and clears the llms.txt cache |
+
+### Enabling write abilities
+
+Write abilities are disabled by default. To enable them, go to **Settings > LLM Markdown** and check **Enable write abilities**.

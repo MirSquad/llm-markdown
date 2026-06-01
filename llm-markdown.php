@@ -3,7 +3,7 @@
  * Plugin Name:       LLM Markdown
  * Plugin URI:        https://miriamschwab.me/plugins/llm-markdown
  * Description:       Serves markdown versions of site content at .md URLs for LLMs, with llms.txt site index.
- * Version:           1.1.2
+ * Version:           1.2.2
  * Author:            Miriam Schwab
  * Author URI:        https://miriamschwab.me
  * License:           GPL-2.0-or-later
@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'LLMMD_VERSION', '1.1.2' );
+define( 'LLMMD_VERSION', '1.2.2' );
 define( 'LLMMD_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'LLMMD_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define( 'LLMMD_PLUGIN_FILE', __FILE__ );
@@ -28,6 +28,7 @@ require_once LLMMD_PLUGIN_DIR . 'includes/class-llmmd-converter.php';
 require_once LLMMD_PLUGIN_DIR . 'includes/class-llmmd-server.php';
 require_once LLMMD_PLUGIN_DIR . 'includes/class-llmmd-llmstxt.php';
 require_once LLMMD_PLUGIN_DIR . 'includes/class-llmmd-admin.php';
+require_once LLMMD_PLUGIN_DIR . 'includes/abilities.php';
 
 add_action( 'init', 'llmmd_load_textdomain' );
 function llmmd_load_textdomain() {
